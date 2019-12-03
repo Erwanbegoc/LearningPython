@@ -18,6 +18,7 @@ class Engine(object):
             print("\n-----------")
             next_scene_name = current_scene.enter()
             current_scene = self.scene_map.next_scene(next_scene_name)
+
 class Death(Scene): 
     
     quips = [
@@ -50,6 +51,7 @@ class CentralCorridor(Scene):
         
         elif action == "c":
             print("you make him laugh, to death!")
+            return 'laser_weapon_armory'
         else:
             print("Does not compute")
             return 'Central_corridor'
@@ -60,25 +62,29 @@ class LaserWeaponArmory(Scene):
             print("You dive roll into the Weapon Armory")
             print("The bomb is there, unlock the keypad, 10 tries, 3 digits, do it!")
             code = "%d%d%d" % (randint(1,9), randint(1,9), randint(1,9))
-            guess = raw_input("[KEYPAD]> ")
+            guess = input("[KEYPAD]> ")
             guesses = 0
+
 
             while guess != code and guesses < 10:
               print("BZZZEEEDDD!")
               guesses += 1
-              guess = raw_input("[KEYPAD]> ")
+              guess = input("[KEYPAD]> ")
+
             if guess == code:
                 print("the container opens, you grab the bomb and run to the bridge")
                 return 'the_bridge'
             else:
                 print("the locks seals, you're dead")
                 return 'death'
+
+
 class TheBridge(Scene):
 
         def enter(self):
             print("you burst onto the bridge and see some gothons")
 
-            action = raw_input("do you T - throw the bomb or P - Slowly place the bomb >")
+            action = input("do you T - throw the bomb or P - Slowly place the bomb >")
 
             if action == "T":
                 print("the bomb goes off, you all die")
